@@ -50,6 +50,7 @@ def generate_launch_description():
           'frame_id':'base_footprint',
           'use_sim_time':use_sim_time,
           'subscribe_depth':True,
+          'subscribe_scan':True,
           'use_action_for_goal':True,
           'qos_image':qos,
           'qos_imu':qos,

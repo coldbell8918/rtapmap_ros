@@ -411,10 +411,10 @@ def generate_launch_description():
         DeclareLaunchArgument('stereo', default_value='false', description='Use stereo input instead of RGB-D.'),
 
         DeclareLaunchArgument('localization', default_value='false', description='Launch in localization mode.'),
-        DeclareLaunchArgument('rtabmap_viz',  default_value='true',  description='Launch RTAB-Map UI (optional).'),
+        DeclareLaunchArgument('rtabmap_viz',  default_value='false',  description='Launch RTAB-Map UI (optional).'),
         DeclareLaunchArgument('rviz',         default_value='false', description='Launch RVIZ (optional).'),
 
-        DeclareLaunchArgument('use_sim_time', default_value='false', description='Use simulation (Gazebo) clock if true'),
+        DeclareLaunchArgument('use_sim_time', default_value='true', description='Use simulation (Gazebo) clock if true'),
 
         DeclareLaunchArgument('log_level',    default_value='info', description="ROS logging level (debug, info, warn, error). For RTAB-Map\'s logger level, use \"args\" argument."),
 
@@ -423,16 +423,16 @@ def generate_launch_description():
         DeclareLaunchArgument('gui_cfg',  default_value='~/.ros/rtabmap_gui.ini',  description='Configuration path of rtabmap_viz.'),
         DeclareLaunchArgument('rviz_cfg', default_value=config_rviz,               description='Configuration path of rviz2.'),
 
-        DeclareLaunchArgument('frame_id',       default_value='base_link',          description='Fixed frame id of the robot (base frame), you may set "base_link" or "base_footprint" if they are published. For camera-only config, this could be "camera_link".'),
-        DeclareLaunchArgument('odom_frame_id',  default_value='',                   description='If set, TF is used to get odometry instead of the topic.'),
+        DeclareLaunchArgument('frame_id',       default_value='base_footprint',          description='Fixed frame id of the robot (base frame), you may set "base_link" or "base_footprint" if they are published. For camera-only config, this could be "camera_link".'),
+        DeclareLaunchArgument('odom_frame_id',  default_value='odom',                   description='If set, TF is used to get odometry instead of the topic.'),
         DeclareLaunchArgument('map_frame_id',   default_value='map',                description='Output map frame id (TF).'),
         DeclareLaunchArgument('map_topic',      default_value='map',                description='Map topic name.'),
         DeclareLaunchArgument('publish_tf_map', default_value='true',               description='Publish TF between map and odomerty.'),
-        DeclareLaunchArgument('namespace',      default_value='rtabmap',            description=''),
+        DeclareLaunchArgument('namespace',      default_value='',            description=''),
         DeclareLaunchArgument('database_path',  default_value='~/.ros/rtabmap.db',  description='Where is the map saved/loaded.'),
         DeclareLaunchArgument('topic_queue_size', default_value='10',               description='Queue size of individual topic subscribers.'),
         DeclareLaunchArgument('queue_size',     default_value='2',                  description='Backward compatibility, use "sync_queue_size" instead.'),
-        DeclareLaunchArgument('qos',            default_value='1',                  description='General QoS used for sensor input data: 0=system default, 1=Reliable, 2=Best Effort.'),
+        DeclareLaunchArgument('qos',            default_value='2',                  description='General QoS used for sensor input data: 0=system default, 1=Reliable, 2=Best Effort.'),
         DeclareLaunchArgument('wait_for_transform', default_value='0.2',            description=''),
         DeclareLaunchArgument('rtabmap_args',   default_value='',                   description='Backward compatibility, use "args" instead.'),
         DeclareLaunchArgument('launch_prefix',  default_value='',                   description='For debugging purpose, it fills prefix tag of the nodes, e.g., "xterm -e gdb -ex run --args"'),
@@ -445,13 +445,13 @@ def generate_launch_description():
         DeclareLaunchArgument('ground_truth_frame_id',      default_value='', description='e.g., "world"'),
         DeclareLaunchArgument('ground_truth_base_frame_id', default_value='', description='e.g., "tracker", a fake frame matching the frame "frame_id" (but on different TF tree)'),
         
-        DeclareLaunchArgument('approx_sync',  default_value='false',            description='If timestamps of the input topics should be synchronized using approximate or exact time policy.'),
+        DeclareLaunchArgument('approx_sync',  default_value='true',            description='If timestamps of the input topics should be synchronized using approximate or exact time policy.'),
         DeclareLaunchArgument('approx_sync_max_interval',  default_value='0.0', description='(sec) 0 means infinite interval duration (used with approx_sync=true)'),
 
         # RGB-D related topics
-        DeclareLaunchArgument('rgb_topic',           default_value='/camera/rgb/image_rect_color',       description=''),
-        DeclareLaunchArgument('depth_topic',         default_value='/camera/depth_registered/image_raw', description=''),
-        DeclareLaunchArgument('camera_info_topic',   default_value='/camera/rgb/camera_info',            description=''),
+        DeclareLaunchArgument('rgb_topic',           default_value='/intel_realsense_r200_rgb/image_raw',       description=''),
+        DeclareLaunchArgument('depth_topic',         default_value='/intel_realsense_r200_depth/depth/image_raw', description=''),
+        DeclareLaunchArgument('camera_info_topic',   default_value='/intel_realsense_r200_rgb/camera_info',            description=''),
         
         # Stereo related topics
         DeclareLaunchArgument('stereo_namespace',        default_value='/stereo_camera', description=''),
@@ -473,14 +473,14 @@ def generate_launch_description():
         DeclareLaunchArgument('depth_image_transport', default_value='compressedDepth', description='Depth compatible types: compressedDepth (see "rosrun image_transport list_transports")'),
        
         # LiDAR
-        DeclareLaunchArgument('subscribe_scan',       default_value='false',       description=''),
+        DeclareLaunchArgument('subscribe_scan',       default_value='true',       description=''),
         DeclareLaunchArgument('scan_topic',           default_value='/scan',       description=''),
         DeclareLaunchArgument('subscribe_scan_cloud', default_value='false',       description=''),
         DeclareLaunchArgument('scan_cloud_topic',     default_value='/scan_cloud', description=''),
         DeclareLaunchArgument('scan_normal_k',        default_value='0',           description=''),
         
         # Odometry
-        DeclareLaunchArgument('visual_odometry',            default_value='true',  description='Launch rtabmap visual odometry node.'),
+        DeclareLaunchArgument('visual_odometry',            default_value='false',  description='Launch rtabmap visual odometry node.'),
         DeclareLaunchArgument('icp_odometry',               default_value='false', description='Launch rtabmap icp odometry node.'),
         DeclareLaunchArgument('odom_topic',                 default_value='odom',  description='Odometry topic name.'),
         DeclareLaunchArgument('vo_frame_id',                default_value=LaunchConfiguration('odom_topic'), description='Visual/Icp odometry frame ID for TF.'),
@@ -494,7 +494,7 @@ def generate_launch_description():
         DeclareLaunchArgument('odom_guess_min_rotation',    default_value='0.0',   description=''),
         
         # imu
-        DeclareLaunchArgument('imu_topic',        default_value='/imu/data', description='Used with VIO approaches and for SLAM graph optimization (gravity constraints).'),
+        DeclareLaunchArgument('imu_topic',        default_value='/imu', description='Used with VIO approaches and for SLAM graph optimization (gravity constraints).'),
         DeclareLaunchArgument('wait_imu_to_init', default_value='false',     description=''),
         
         # User Data
