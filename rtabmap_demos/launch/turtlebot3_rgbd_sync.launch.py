@@ -62,12 +62,14 @@ def generate_launch_description():
           'RGBD/NeighborLinkRefining':'True',
           'Grid/RangeMin':'0.2', # ignore laser scan points on the robot itself
           'Optimizer/GravitySigma':'0' # Disable imu constraints (we are already in 2D)
+          
     }
 
     remappings=[
           ('rgb/image', '/camera/image_raw'),
           ('rgb/camera_info', '/camera/camera_info'),
           ('depth/image', '/camera/depth/image_raw')]
+          
 
     return LaunchDescription([
 

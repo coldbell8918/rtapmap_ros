@@ -61,7 +61,8 @@ def generate_launch_description():
     remappings=[
           ('rgb/image', '/camera/image_raw'),
           ('rgb/camera_info', '/camera/camera_info'),
-          ('depth/image', '/camera/depth/image_raw')]
+          ('depth/image', '/camera/depth/image_raw'),
+          ('scan', 'laser_scan')]
 
     return LaunchDescription([
 
@@ -71,7 +72,7 @@ def generate_launch_description():
             description='Use simulation (Gazebo) clock if true'),
         
         DeclareLaunchArgument(
-            'qos', default_value='2',
+            'qos', default_value='1',
             description='QoS used for input sensor topics'),
             
         DeclareLaunchArgument(
